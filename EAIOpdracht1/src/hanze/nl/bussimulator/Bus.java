@@ -24,7 +24,7 @@ public class Bus{
 	}
 	
 	public void setbusID(int starttijd){
-		this.busID=starttijd+lijn.name()+ "R" + richting;
+		this.busID=starttijd+lijn.name()+richting;
 	}
 	
 	public void naarVolgendeHalte(){
@@ -82,7 +82,6 @@ public class Bus{
 		for (i = halteNummer+richting ; !(i>=lijn.getLengte()) && !(i < 0); i=i+richting ){
 			tijdNaarHalte+= lijn.getHalte(i).afstand(eerstVolgende);
 			ETA eta = new ETA(lijn.getHalte(i).name(), lijn.getRichting(i),tijdNaarHalte);
-			System.out.println(bericht.lijnNaam + " naar halte" + eta.halteNaam + " t=" + tijdNaarHalte);
 			bericht.ETAs.add(eta);
 			eerstVolgende=lijn.getHalte(i).getPositie();
 		}
@@ -100,6 +99,6 @@ public class Bus{
 	}
 
 	public void sendBericht(Bericht bericht){
-		//TODO verstuur een XML bericht naar de messagebroker.
+		//TODO verstuur een XML bericht naar de messagebroker.	
 	}
 }

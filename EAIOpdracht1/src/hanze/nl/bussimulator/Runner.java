@@ -4,11 +4,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import hanze.nl.tijdtools.TijdFuncties;
+
 public class Runner {
 
 	private static HashMap<Integer,ArrayList<Bus>> busStart = new HashMap<Integer,ArrayList<Bus>>();
 	private static ArrayList<Bus> actieveBussen = new ArrayList<Bus>();
 	private static int interval=1000;
+	private static int syncInterval=5;    
 	
 	private static void addBus(int starttijd, Bus bus){
 		ArrayList<Bus> bussen = new ArrayList<Bus>();
@@ -91,7 +94,7 @@ public class Runner {
 		addBus(10, bus20);	
 		return Collections.min(busStart.keySet());
 	}
-	
+
 	public static void main(String[] args) throws InterruptedException {
 		int tijd=0;
 		int volgende = initBussen();
@@ -104,4 +107,25 @@ public class Runner {
 			tijd++;
 		}
 	}
+
+	/* Om de tijdsynchronisatie te gebruiken moet de onderstaande main gebruikt worden
+	 * 
+	public static void main(String[] args) throws InterruptedException {
+		int tijd=0;
+		int counter=0;
+		TijdFuncties tijdFuncties = new TijdFuncties();
+		tijdFuncties.initSimulatorTijden(interval,syncInterval);
+		int volgende = initBussen();
+		while ((volgende>=0) || !actieveBussen.isEmpty()) {
+			counter=tijdFuncties.getCounter();
+			tijd=tijdFuncties.getTijdCounter();
+			System.out.println("De tijd is:" + tijdFuncties.getSimulatorWeergaveTijd());
+			volgende = (counter==volgende) ? startBussen(counter) : volgende;
+			moveBussen(tijd);
+			sendETAs(tijd);
+			tijdFuncties.simulatorStep();
+		}
+	}
+		 */
+
 }
